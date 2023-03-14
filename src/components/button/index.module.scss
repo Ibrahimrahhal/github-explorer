@@ -1,0 +1,39 @@
+.button {
+    background-color: var(--primary-color);
+    color: var(--primary-visible-color);
+    padding: 10px 30px;
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+        background-color: var(--primary-visible-color);
+        color: var(--primary-color);
+    }
+    &--outline {
+        background-color: transparent;
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+        &:hover {
+            background-color: var(--primary-color);
+            color: var(--primary-visible-color);
+        }
+    }
+    &--secondary {
+        background-color: var(--secondary-color);
+        color: var(--secondary-visible-color);
+        &:hover {
+            background-color: var(--secondary-visible-color);
+            color: var(--secondary-color);
+        }
+        &--outline {
+            background-color: transparent;
+            border: 1px solid var(--secondary-color);
+            color: var(--secondary-color);
+            &:hover {
+                background-color: var(--secondary-color);
+                color: var(--secondary-visible-color);
+            }
+        }
+    }
+}

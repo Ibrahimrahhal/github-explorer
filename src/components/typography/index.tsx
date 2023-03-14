@@ -1,3 +1,4 @@
+import { SpacingHOC } from '@/components/spacing';
 import styles from './index.module.scss';
 
 type TypographyProps = {
@@ -6,13 +7,15 @@ type TypographyProps = {
     align?: 'inherit' | 'left' | 'center' | 'right' | 'justify';
     display?: 'initial' | 'block' | 'inline';
     className?: string;
+    light?: boolean;
 } & React.HTMLAttributes<HTMLParagraphElement>;
 
-export const Typography = ({
+const _Typography = ({
     variant = 'body1',
     color = 'initial',
     align = 'inherit',
     display = 'initial',
+    light = false,
     className,
     ...props
 }: TypographyProps) => {
@@ -27,7 +30,8 @@ export const Typography = ({
         styles[`text--${variant}`],
         styles[`text--${color}`],
         styles[`text--${align}`],
-        styles[`text--${display}`]
+        styles[`text--${display}`],
+        light && styles['text--light']
     ]
         .filter(Boolean)
         .join(' ');
@@ -37,3 +41,5 @@ export const Typography = ({
         </Elm>
     );
 };
+
+export const Typography = SpacingHOC(_Typography);

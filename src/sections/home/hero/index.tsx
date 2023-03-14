@@ -22,10 +22,12 @@ export const Hero = () => {
                 >
                     Explore Github With Ease
                 </Typography>
-                <Form onSubmit={(e) => {
-                    e.preventDefault()
-                    console.log(e)
-                }}>
+                <Form
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        console.log(e);
+                    }}
+                >
                     <Flex justifyContent="center" margin={[6, 0]}>
                         <Input
                             placeholder="Search Query"

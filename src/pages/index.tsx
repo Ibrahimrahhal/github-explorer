@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import { Button } from '../components/button';
 import { Hero } from '@/sections/home/hero';
+import { SearchResults } from '@/sections/home/search-results';
+import { Container } from '@/components/container';
 
 export default function Home() {
     return (
@@ -18,7 +20,10 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main>
-                <Hero />
+                <Container>
+                    <Hero />
+                    <SearchResults />
+                </Container>
             </main>
         </>
     );

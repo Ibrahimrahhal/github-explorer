@@ -1,0 +1,10 @@
+.hero {
+    background-color: var(--secondary-color);
+    color: var(--secondary-visible-color);
+    border-radius: var(--border-radius);
+    height: 350px;
+    box-shadow: 1px 5px 21px -5px rgba(0, 0, 0, 0.07);
+    &__content {
+        height: 100%;
+    }
+}

@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { Button } from '../components/button';
+import { Hero } from '@/sections/home/hero';
 
 export default function Home() {
     return (
@@ -17,7 +18,7 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main>
-                <Button>Button</Button>
+                <Hero />
             </main>
         </>
     );

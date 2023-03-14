@@ -1,3 +1,5 @@
+import { InputHTMLAttributes } from 'react';
+import { SpacingHOC } from '@/components/spacing';
 import styles from './index.module.scss';
 
 type InputProps = {
@@ -5,8 +7,25 @@ type InputProps = {
     placeholder?: string;
     value?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-} & React.HTMLAttributes<HTMLInputElement>;
+} & InputHTMLAttributes<HTMLInputElement>;
 
-export const Input = ({ type = 'text', placeholder, value }: InputProps) => {
-    return <input type={type} placeholder={placeholder} value={value} />;
+const _Input = ({
+    type = 'text',
+    placeholder,
+    value,
+    className,
+    ...rest
+}: InputProps) => {
+    const classNames = [className, styles.input].filter(Boolean).join(' ');
+    return (
+        <input
+            {...rest}
+            type={type}
+            placeholder={placeholder}
+            className={classNames}
+            value={value}
+        />
+    );
 };
+
+export const Input = SpacingHOC<InputProps>(_Input);

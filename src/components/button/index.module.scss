@@ -6,6 +6,8 @@
     border: none;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    font-weight: 600;
+    box-shadow: var(--box-shadow);
     &:hover {
         background-color: var(--primary-visible-color);
         color: var(--primary-color);

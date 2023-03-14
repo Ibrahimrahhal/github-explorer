@@ -1,9 +1,20 @@
 :root {
-    --max-width: 1100px;
     --primary-color: #16151b;
+    --primary-color-rgb: 22, 21, 27;
     --primary-visible-color: #fbfbfb;
     --secondary-color: #fbfbfb;
+    --secondary-color-rgb: 251, 251, 251;
     --secondary-visible-color: #16151b;
+    --light-color: #ffffff;
+
+    --box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.15);
+    --box-shadow-hover: 0px 0px 30px 0px rgba(0, 0, 0, 0.3);
+    --box-shadow-focus: 0px 0px 30px 0px rgba(0, 0, 0, 0.3);
+
     --border-radius: 10px;
-    --btn-border-radius: 15px;
+    --btn-border-radius: 10px;
+
+    --primary-font: 'Poppins', Helvetica, sans-serif;
+
+    --max-width: 1100px;
 }

@@ -1,0 +1,82 @@
+@mixin heading {
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+@mixin body {
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.text {
+    font-family: var(--primary-font);
+    color: var(--primary-color);
+
+    &--h1 {
+        font-size: 2.5rem;
+        @include heading;
+    }
+
+    &--h2 {
+        font-size: 2rem;
+        @include heading;
+    }
+
+    &--h3 {
+        font-size: 1.5rem;
+        @include heading;
+    }
+
+    &--h4 {
+        font-size: 1.25rem;
+        @include heading;
+    }
+
+    &--h5 {
+        font-size: 1rem;
+        @include heading;
+    }
+
+    &--h6 {
+        font-size: 0.875rem;
+        @include heading;
+    }
+
+    &--body1 {
+        font-size: 1rem;
+        @include body;
+    }
+
+    &--body2 {
+        font-size: 0.875rem;
+        @include body;
+    }
+
+    &--secondary {
+        color: var(--secondary-color);
+    }
+
+    &--left {
+        text-align: left;
+    }
+
+    &--center {
+        text-align: center;
+    }
+
+    &--right {
+        text-align: right;
+    }
+
+    &--justify {
+        text-align: justify;
+    }
+
+    &--block {
+        display: block;
+    }
+
+    &--inline {
+        display: inline;
+    }
+}

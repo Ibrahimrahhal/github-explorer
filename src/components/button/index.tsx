@@ -1,3 +1,4 @@
+import { ButtonHTMLAttributes } from 'react';
 import styles from './index.module.scss';
 
 type ButtonProps = {
@@ -6,7 +7,7 @@ type ButtonProps = {
     size?: 'small' | 'medium' | 'large';
     variant?: 'contained' | 'outlined' | 'text';
     onClick?: () => void;
-} & React.HTMLAttributes<HTMLButtonElement>;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = ({
     children,

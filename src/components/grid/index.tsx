@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { SpacingHOC } from '../spacing';
 import styles from './index.module.scss';
 
@@ -44,4 +45,4 @@ const _Grid = ({
     );
 };
 
-export const Grid = SpacingHOC<GridProps>(_Grid);
+export const Grid = memo(SpacingHOC<GridProps>(_Grid));

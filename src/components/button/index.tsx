@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, memo } from 'react';
 import styles from './index.module.scss';
 
 type ButtonProps = {
@@ -9,7 +9,7 @@ type ButtonProps = {
     onClick?: () => void;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const Button = ({
+const _Button = ({
     children,
     color = 'primary',
     size = 'medium',
@@ -32,3 +32,5 @@ export const Button = ({
         </button>
     );
 };
+
+export const Button = memo(_Button);

@@ -42,4 +42,4 @@ const _Flex = ({
     );
 };
 
-export const Flex = SpacingHOC<FlexProps>(_Flex);
+export const Flex = React.memo(SpacingHOC<FlexProps>(_Flex));

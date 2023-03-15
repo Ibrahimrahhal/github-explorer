@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import { Flex } from '@/components/flex';
-import styles from './index.module.scss';
 import { Avatar } from '@/components/avatar';
+import styles from './index.module.scss';
 
 type AvatarListProps = {
     avatars: {
@@ -10,7 +11,7 @@ type AvatarListProps = {
     size?: 'extra-small' | 'small' | 'medium' | 'large';
 } & React.HTMLAttributes<HTMLDivElement>;
 
-export const AvatarList = ({
+const _AvatarList = ({
     children,
     className,
     avatars,
@@ -34,3 +35,5 @@ export const AvatarList = ({
         </Flex>
     );
 };
+
+export const AvatarList = memo(_AvatarList);

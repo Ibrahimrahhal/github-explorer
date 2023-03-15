@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import styles from './index.module.scss';
 
 type AvatarProps = {
@@ -7,7 +8,7 @@ type AvatarProps = {
     className?: string;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-export const Avatar = ({
+const _Avatar = ({
     src,
     alt,
     size = 'medium',
@@ -23,3 +24,5 @@ export const Avatar = ({
         </div>
     );
 };
+
+export const Avatar = memo(_Avatar);

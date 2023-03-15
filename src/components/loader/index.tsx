@@ -1,31 +1,30 @@
 import { memo } from 'react';
 import styles from './index.module.scss';
 
-type TagProps = {
-    color?: 'primary' | 'secondary';
+type LoaderProps = {
     size?: 'small' | 'medium' | 'large';
+    color?: 'primary' | 'secondary';
 } & React.HTMLAttributes<HTMLDivElement>;
-
-const _Tag = ({
-    color = 'primary',
+const _Loader = ({
     size = 'medium',
-    children,
+    color,
     className,
     ...rest
-}: TagProps) => {
+}: LoaderProps) => {
     const classNames = [
         className,
-        styles.tag,
-        styles[`tag--${color}`],
-        styles[`tag--${size}`]
+        styles.loader,
+        styles[`loader--${size}`],
+        styles[`loader--${color}`]
     ]
         .filter(Boolean)
         .join(' ');
     return (
         <div {...rest} className={classNames}>
-            {children}
+            <div></div>
+            <div></div>
         </div>
     );
 };
 
-export const Tag = memo(_Tag);
+export const Loader = memo(_Loader);

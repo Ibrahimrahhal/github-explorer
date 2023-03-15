@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import styles from './index.module.scss';
 
 type FormProps = {
@@ -8,7 +9,7 @@ type FormProps = {
     }) => void;
 } & React.HTMLAttributes<HTMLFormElement>;
 
-export const Form = ({
+const _Form = ({
     children,
     onFormSubmit,
     className,
@@ -32,3 +33,5 @@ export const Form = ({
         </form>
     );
 };
+
+export const Form = memo(_Form);

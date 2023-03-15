@@ -13,13 +13,17 @@ type SearchResultsProps = {
     active?: 'users' | 'repositories';
     query: string;
     loading?: boolean;
+    loadingMore: () => void;
+    hasMore: boolean;
     data: RepositoriesQueryResponse | UsersQueryResponse | null;
 };
 export const SearchResults = ({
     active = 'users',
     query,
     loading = false,
-    data = null
+    hasMore,
+    data = null,
+    loadingMore
 }: SearchResultsProps) => {
     return (
         <section className={styles.hero} aria-label="repository query results">
@@ -54,9 +58,14 @@ export const SearchResults = ({
                     </Typography>
                 </Link>
             </Flex>
+            {data && <Typography variant="body1" light>
+                        Found {data?.total_count} Results
+            </Typography>}
             {active === 'users' && (
                 <CollaboratorsList
                     loading={loading}
+                    loadMore={loadingMore}
+                    hasMore={hasMore}
                     collaborators={(data as UsersQueryResponse)?.items?.map(
                         (user) => ({
                             id: user.id.toString(),
@@ -70,6 +79,8 @@ export const SearchResults = ({
             {active === 'repositories' && (
                 <RepositoriesList
                     loading={loading}
+                    loadMore={loadingMore}
+                    hasMore={hasMore}
                     repositories={(
                         data as RepositoriesQueryResponse
                     )?.items?.map((repo) => ({

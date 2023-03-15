@@ -1,4 +1,5 @@
 import { SpacingHOC } from '@/components/spacing';
+import {memo} from 'react';
 import styles from './index.module.scss';
 
 type TypographyProps = {
@@ -42,4 +43,4 @@ const _Typography = ({
     );
 };
 
-export const Typography = SpacingHOC(_Typography);
+export const Typography = memo(SpacingHOC(_Typography));

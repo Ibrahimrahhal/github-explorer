@@ -4,11 +4,18 @@ import { Hero } from '@/sections/home/hero';
 import { SearchResults } from '@/sections/home/search-results';
 import { Container } from '@/components/container';
 import { useGithubSearch } from '@ibrahim-rahhal/github-search-api';
-import { useEffect, useState } from 'react';
+import type {
+    RepositoriesQueryResponse,
+    UsersQueryResponse
+} from '@ibrahim-rahhal/github-search-api';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 
 export default function Home() {
     const router = useRouter();
     const [page, setPage] = useState(1);
+    const [results, setResults] = useState<
+        RepositoriesQueryResponse | UsersQueryResponse | null
+    >(null);
     const { by, query } = router.query;
     useEffect(() => {
         if (router.isReady && !by)
@@ -19,13 +26,40 @@ export default function Home() {
                 }
             });
     }, [by]);
-    const { data, loading, error } = useGithubSearch(
+    const { data, loading, error, hasMore } = useGithubSearch(
         by === 'users' ? 'users' : 'repositories',
         {
+            disableCache: false,
             query: query as string,
-            page
+            page,
+            per_page: 20
         }
     );
+    if(error) 
+        alert(error.message)
+    useLayoutEffect(() => {
+        setResults(null);
+        setPage(1);
+    }, [query, by]);
+
+    useEffect(() => {
+        setResults({
+            ...results,
+            ...data,
+            items: [...(results?.items || []), ...(data?.items || [])]
+        } as any);
+    }, [data]);
+
+    const handleQueryChange = useCallback((query: string) => {
+        router.push({
+            pathname: '/',
+            query: {
+                by,
+                query
+            }
+        });
+    }, [router])
+    
     return (
         <>
             <Head>
@@ -41,25 +75,24 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main>
-                <Container>
-                    <Hero
-                        onQueryChange={(query: string) => {
-                            router.push({
-                                pathname: '/',
-                                query: {
-                                    by,
-                                    query
-                                }
-                            });
-                        }}
-                    />
-                    <SearchResults
-                        loading={loading}
-                        data={data}
-                        query={query as string}
-                        active={by as 'users' | 'repositories'}
-                    />
-                </Container>
+                {(
+                    <Container>
+                        <Hero
+                            onQueryChange={handleQueryChange}
+                            initialQuery={query as string}
+                        />
+                        <SearchResults
+                            loading={loading}
+                            data={results}
+                            query={query as string}
+                            active={by as 'users' | 'repositories'}
+                            hasMore={hasMore}
+                            loadingMore={() => {
+                                setPage((prev) => prev + 1);
+                            }}
+                        />
+                    </Container>
+                )}
             </main>
         </>
     );

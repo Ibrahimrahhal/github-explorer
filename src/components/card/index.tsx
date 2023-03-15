@@ -1,5 +1,6 @@
 import { SpacingHOC } from '@/components/spacing';
 import styles from './index.module.scss';
+import { memo } from 'react';
 
 type CardProps = {} & React.HTMLAttributes<HTMLDivElement>;
 
@@ -12,4 +13,4 @@ const _Card = ({ children, className, ...rest }: CardProps) => {
     );
 };
 
-export const Card = SpacingHOC<CardProps>(_Card);
+export const Card = memo(SpacingHOC(_Card));

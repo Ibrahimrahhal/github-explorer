@@ -1,5 +1,6 @@
 import { SpacingHOC } from '@/components/spacing';
 import styles from './index.module.scss';
+import { memo } from 'react';
 
 type ContainerProps = {} & React.HTMLAttributes<HTMLDivElement>;
 
@@ -12,4 +13,4 @@ const _Container = ({ children, className, ...rest }: ContainerProps) => {
     );
 };
 
-export const Container = SpacingHOC(_Container);
+export const Container = memo(SpacingHOC(_Container));

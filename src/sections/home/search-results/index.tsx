@@ -2,9 +2,10 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Flex } from '@/components/flex';
 import { Typography } from '@/components/typography';
+import { CollaboratorsList } from '@/sections/home/collaborators-list';
+import { RepositoriesList } from '@/sections/home/repositories-list';
 import Link from 'next/link';
 import styles from './index.module.scss';
-import { CollaboratorsList } from '../collaborators-list';
 
 export const SearchResults = () => {
     const router = useRouter();
@@ -49,7 +50,8 @@ export const SearchResults = () => {
                     </Typography>
                 </Link>
             </Flex>
-            <CollaboratorsList />
+            {by === 'users' && <CollaboratorsList />}
+            {by === 'repositories' && <RepositoriesList />}
         </section>
     );
 };

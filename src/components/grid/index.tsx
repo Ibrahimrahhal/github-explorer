@@ -30,7 +30,7 @@ const _Grid = ({
         ...(style || {}),
         ...{
             gap:
-                typeof gap === 'undefined' || item ? undefined : `${gap & 8}px`,
+                typeof gap === 'undefined' || item ? undefined : `${gap * 8}px`,
             width:
                 typeof spans === 'undefined' || container
                     ? undefined

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --config .prettierrc 'src/**/*.scss' 'src/**/*.tsx' --write",
+    "format": "prettier --config .prettierrc './**/*.scss' './**/*.tsx' --write",
     "test": "jest --coverage"
   },
   "dependencies": {

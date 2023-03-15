@@ -24,7 +24,7 @@ export const AvatarList = ({
                     <Avatar
                         {...avatar}
                         size={size}
-                        id={avatar.src}
+                        key={avatar.src}
                         style={{
                             transform: `translateX(-${index * 5}px)`
                         }}

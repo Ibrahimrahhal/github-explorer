@@ -6,7 +6,7 @@ type CardProps = {} & React.HTMLAttributes<HTMLDivElement>;
 const _Card = ({ children, className, ...rest }: CardProps) => {
     const classNames = [className, styles.card].filter(Boolean).join(' ');
     return (
-        <div {...rest} className={classNames}>
+        <div data-testid="card" {...rest} className={classNames}>
             {children}
         </div>
     );

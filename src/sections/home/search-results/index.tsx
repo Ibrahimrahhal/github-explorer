@@ -58,9 +58,11 @@ export const SearchResults = ({
                     </Typography>
                 </Link>
             </Flex>
-            {data && <Typography variant="body1" light>
-                        Found {data?.total_count} Results
-            </Typography>}
+            {data && (
+                <Typography variant="body1" light>
+                    Found {data?.total_count} Results
+                </Typography>
+            )}
             {active === 'users' && (
                 <CollaboratorsList
                     loading={loading}

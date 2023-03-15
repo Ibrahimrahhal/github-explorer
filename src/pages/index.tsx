@@ -25,7 +25,7 @@ export default function Home() {
                     by: 'users'
                 }
             });
-    }, [by]);
+    }, [by, router]);
     const { data, loading, error, hasMore } = useGithubSearch(
         by === 'users' ? 'users' : 'repositories',
         {
@@ -35,31 +35,36 @@ export default function Home() {
             per_page: 20
         }
     );
-    if(error) 
-        alert(error.message)
+    if (error) alert(error.message);
     useLayoutEffect(() => {
         setResults(null);
         setPage(1);
     }, [query, by]);
 
     useEffect(() => {
-        setResults({
-            ...results,
-            ...data,
-            items: [...(results?.items || []), ...(data?.items || [])]
-        } as any);
+        setResults(
+            (results) =>
+                ({
+                    ...results,
+                    ...data,
+                    items: [...(results?.items || []), ...(data?.items || [])]
+                } as any)
+        );
     }, [data]);
 
-    const handleQueryChange = useCallback((query: string) => {
-        router.push({
-            pathname: '/',
-            query: {
-                by,
-                query
-            }
-        });
-    }, [router])
-    
+    const handleQueryChange = useCallback(
+        (query: string) => {
+            router.push({
+                pathname: '/',
+                query: {
+                    by,
+                    query
+                }
+            });
+        },
+        [router, by]
+    );
+
     return (
         <>
             <Head>
@@ -75,7 +80,7 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main>
-                {(
+                {
                     <Container>
                         <Hero
                             onQueryChange={handleQueryChange}
@@ -92,7 +97,7 @@ export default function Home() {
                             }}
                         />
                     </Container>
-                )}
+                }
             </main>
         </>
     );

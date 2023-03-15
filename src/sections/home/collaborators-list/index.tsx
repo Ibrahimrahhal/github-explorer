@@ -19,16 +19,17 @@ type CollaboratorsListProps = {
     collaborators?: Collaborator[];
 };
 
-const RenderCollaborator = memo(({item}: {item: Collaborator}) => {
+const RenderCollaborator = memo(function _RenderCollaborator({
+    item
+}: {
+    item: Collaborator;
+}) {
     const collaborator = item;
     return (
         <Grid item key={collaborator.id}>
             <Card padding={[2, 4]}>
                 <Flex>
-                    <Avatar
-                        alt={collaborator.name}
-                        src={collaborator.avatar}
-                    />
+                    <Avatar alt={collaborator.name} src={collaborator.avatar} />
                     <Flex
                         direction="column"
                         justifyContent="center"
@@ -37,10 +38,7 @@ const RenderCollaborator = memo(({item}: {item: Collaborator}) => {
                         <Typography variant="h5">
                             {collaborator.name}
                         </Typography>
-                        <a
-                            href={collaborator.profileUrl}
-                            target="_blank"
-                        >
+                        <a href={collaborator.profileUrl} target="_blank">
                             <Typography variant="body2" light>
                                 View Profile
                             </Typography>

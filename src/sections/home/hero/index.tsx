@@ -12,13 +12,19 @@ type HeroProps = {
 };
 
 export const Hero = ({ onQueryChange, initialQuery }: HeroProps) => {
-    const handleFormSubmit = useCallback(({ event, values }: {
-        event: FormEvent<HTMLFormElement>;
-        values: Record<string, FormDataEntryValue>
-    }) => {
-        event.preventDefault();
-        onQueryChange(values.searchQuery as string);
-    }, [onQueryChange]);
+    const handleFormSubmit = useCallback(
+        ({
+            event,
+            values
+        }: {
+            event: FormEvent<HTMLFormElement>;
+            values: Record<string, FormDataEntryValue>;
+        }) => {
+            event.preventDefault();
+            onQueryChange(values.searchQuery as string);
+        },
+        [onQueryChange]
+    );
     return (
         <section className={styles.hero} aria-label="search section">
             <Flex
@@ -35,9 +41,7 @@ export const Hero = ({ onQueryChange, initialQuery }: HeroProps) => {
                 >
                     Explore Github With Ease
                 </Typography>
-                <Form
-                    onFormSubmit={handleFormSubmit}
-                >
+                <Form onFormSubmit={handleFormSubmit}>
                     <Flex justifyContent="center" margin={[6, 0]}>
                         <Input
                             placeholder="Search Query"

@@ -1,4 +1,4 @@
-import {  useEffect} from 'react';
+import { useEffect } from 'react';
 import { Debounce } from '@/utils/debounce';
 import { Loader } from '@/components/loader';
 import { Flex } from '@/components/flex';
@@ -7,7 +7,7 @@ import styles from './index.module.scss';
 type InfiniteScrollProps = {
     elements: any[];
     renderElement: React.FC<{
-        item: any
+        item: any;
     }>;
     loadMore: () => void;
     pageSize?: number;
@@ -15,21 +15,23 @@ type InfiniteScrollProps = {
     loading?: boolean;
 };
 
-const handleLoadingMore = Debounce((loading: boolean, elements: any[], hasMore: boolean , loadMore: () => void) => {
-        console.log('should load more', 
-        window.innerHeight + window.scrollY >=
-                document.body.offsetHeight ,
-            !loading ,
-            hasMore);
+const handleLoadingMore = Debounce(
+    (
+        loading: boolean,
+        elements: any[],
+        hasMore: boolean,
+        loadMore: () => void
+    ) => {
         if (
-            window.innerHeight + window.scrollY >=
-                document.body.offsetHeight &&
+            window.innerHeight + window.scrollY >= document.body.offsetHeight &&
             !loading &&
             hasMore
         ) {
             loadMore();
         }
-    }, 300)
+    },
+    300
+);
 
 export const InfiniteScroll = ({
     elements,
@@ -38,16 +40,18 @@ export const InfiniteScroll = ({
     hasMore,
     loading = false
 }: InfiniteScrollProps) => {
-
     useEffect(() => {
-        const handleScroll = () => handleLoadingMore(loading, elements, hasMore, loadMore);
+        const handleScroll = () =>
+            handleLoadingMore(loading, elements, hasMore, loadMore);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     return (
         <>
-            {elements.map(e => <Element  key={e.id} item={e} />)}
+            {elements.map((e) => (
+                <Element key={e.id} item={e} />
+            ))}
             {hasMore && (elements.length > 0 || loading) && (
                 <Flex
                     justifyContent="center"

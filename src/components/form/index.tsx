@@ -9,12 +9,7 @@ type FormProps = {
     }) => void;
 } & React.HTMLAttributes<HTMLFormElement>;
 
-const _Form = ({
-    children,
-    onFormSubmit,
-    className,
-    ...props
-}: FormProps) => {
+const _Form = ({ children, onFormSubmit, className, ...props }: FormProps) => {
     return (
         <form
             {...props}

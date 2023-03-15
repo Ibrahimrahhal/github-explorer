@@ -1,5 +1,5 @@
 import { SpacingHOC } from '@/components/spacing';
-import {memo} from 'react';
+import { memo } from 'react';
 import styles from './index.module.scss';
 
 type TypographyProps = {

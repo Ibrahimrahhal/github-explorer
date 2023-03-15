@@ -1,3 +1,7 @@
+import type {
+    RepositoriesQueryResponse,
+    UsersQueryResponse
+} from '@ibrahim-rahhal/github-search-api';
 import { Flex } from '@/components/flex';
 import { Typography } from '@/components/typography';
 import { CollaboratorsList } from '@/sections/home/collaborators-list';
@@ -7,8 +11,16 @@ import styles from './index.module.scss';
 
 type SearchResultsProps = {
     active?: 'users' | 'repositories';
+    query: string;
+    loading?: boolean;
+    data: RepositoriesQueryResponse | UsersQueryResponse | null;
 };
-export const SearchResults = ({ active = 'users' }: SearchResultsProps) => {
+export const SearchResults = ({
+    active = 'users',
+    query,
+    loading = false,
+    data = null
+}: SearchResultsProps) => {
     return (
         <section className={styles.hero} aria-label="repository query results">
             <Flex margin={[6, 0, 1.5, 0]}>
@@ -16,7 +28,8 @@ export const SearchResults = ({ active = 'users' }: SearchResultsProps) => {
                     href={{
                         pathname: '/',
                         query: {
-                            by: 'users'
+                            by: 'users',
+                            query
                         }
                     }}
                 >
@@ -31,7 +44,8 @@ export const SearchResults = ({ active = 'users' }: SearchResultsProps) => {
                     href={{
                         pathname: '/',
                         query: {
-                            by: 'repositories'
+                            by: 'repositories',
+                            query
                         }
                     }}
                 >
@@ -40,8 +54,34 @@ export const SearchResults = ({ active = 'users' }: SearchResultsProps) => {
                     </Typography>
                 </Link>
             </Flex>
-            {active === 'users' && <CollaboratorsList />}
-            {active === 'repositories' && <RepositoriesList />}
+            {active === 'users' && (
+                <CollaboratorsList
+                    loading={loading}
+                    collaborators={(data as UsersQueryResponse)?.items?.map(
+                        (user) => ({
+                            id: user.id.toString(),
+                            avatar: user.avatar_url,
+                            name: user.login,
+                            profileUrl: user.html_url
+                        })
+                    )}
+                />
+            )}
+            {active === 'repositories' && (
+                <RepositoriesList
+                    loading={loading}
+                    repositories={(
+                        data as RepositoriesQueryResponse
+                    )?.items?.map((repo) => ({
+                        id: repo.id.toString(),
+                        name: repo.name,
+                        owner: {
+                            name: repo.owner?.login,
+                            profileUrl: repo.owner?.html_url
+                        }
+                    }))}
+                />
+            )}
         </section>
     );
 };

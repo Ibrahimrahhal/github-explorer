@@ -4,10 +4,11 @@ import { Hero } from '@/sections/home/hero';
 import { SearchResults } from '@/sections/home/search-results';
 import { Container } from '@/components/container';
 import { useGithubSearch } from '@ibrahim-rahhal/github-search-api';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
     const router = useRouter();
+    const [page, setPage] = useState(1);
     const { by, query } = router.query;
     useEffect(() => {
         if (router.isReady && !by)
@@ -18,10 +19,13 @@ export default function Home() {
                 }
             });
     }, [by]);
-    const { data, loading, error } = useGithubSearch({
-        query: 'ibrahim',
-        type: 'users'
-    });
+    const { data, loading, error } = useGithubSearch(
+        by === 'users' ? 'users' : 'repositories',
+        {
+            query: query as string,
+            page
+        }
+    );
     return (
         <>
             <Head>
@@ -49,7 +53,12 @@ export default function Home() {
                             });
                         }}
                     />
-                    <SearchResults active={by as 'users' | 'repositories'} />
+                    <SearchResults
+                        loading={loading}
+                        data={data}
+                        query={query as string}
+                        active={by as 'users' | 'repositories'}
+                    />
                 </Container>
             </main>
         </>

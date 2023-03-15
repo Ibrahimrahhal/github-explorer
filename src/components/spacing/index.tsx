@@ -19,11 +19,9 @@ export const SpacingHOC = <
 ) => {
     const newComponent = (props: InputProps & SpacingProps) => {
         const { padding, margin, style, ...rest } = props;
-        const newStyles = {
-            padding: padding ? getSpacing(padding) : undefined,
-            margin: margin ? getSpacing(margin) : undefined,
-            ...(style || {})
-        };
+        const newStyles = style || {};
+        if (padding) newStyles.padding = getSpacing(padding);
+        if (margin) newStyles.margin = getSpacing(margin);
         return <Component style={newStyles} {...(rest as InputProps)} />;
     };
     return newComponent;

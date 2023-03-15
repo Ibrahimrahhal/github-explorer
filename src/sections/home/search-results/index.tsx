@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import { Flex } from '@/components/flex';
 import { Typography } from '@/components/typography';
 import Link from 'next/link';
 import styles from './index.module.scss';
+import { CollaboratorsList } from '../collaborators-list';
 
 export const SearchResults = () => {
     const router = useRouter();
-    const {by, query} = router.query
+    const { by, query } = router.query;
     useEffect(() => {
         if (router.isReady && !by)
             router.push({
@@ -15,7 +16,7 @@ export const SearchResults = () => {
                 query: {
                     by: 'users'
                 }
-            })
+            });
     }, [by]);
     return (
         <section className={styles.hero} aria-label="repository query results">
@@ -28,7 +29,9 @@ export const SearchResults = () => {
                         }
                     }}
                 >
-                    <Typography variant="h3" light={by !== 'users'}>Collaborators</Typography>
+                    <Typography variant="h3" light={by !== 'users'}>
+                        Collaborators
+                    </Typography>
                 </Link>
                 <Typography variant="h3" light margin={[0, 1, 0, 1]}>
                     /
@@ -46,6 +49,7 @@ export const SearchResults = () => {
                     </Typography>
                 </Link>
             </Flex>
+            <CollaboratorsList />
         </section>
     );
 };

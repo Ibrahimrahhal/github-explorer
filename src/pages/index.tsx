@@ -1,15 +1,27 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { Hero } from '@/sections/home/hero';
 import { SearchResults } from '@/sections/home/search-results';
 import { Container } from '@/components/container';
 import { useGithubSearch } from '@ibrahim-rahhal/github-search-api';
+import { useEffect } from 'react';
 
 export default function Home() {
+    const router = useRouter();
+    const { by, query } = router.query;
+    useEffect(() => {
+        if (router.isReady && !by)
+            router.push({
+                pathname: '/',
+                query: {
+                    by: 'users'
+                }
+            });
+    }, [by]);
     const { data, loading, error } = useGithubSearch({
         query: 'ibrahim',
         type: 'users'
     });
-
     return (
         <>
             <Head>
@@ -26,8 +38,18 @@ export default function Home() {
             </Head>
             <main>
                 <Container>
-                    <Hero />
-                    <SearchResults />
+                    <Hero
+                        onQueryChange={(query: string) => {
+                            router.push({
+                                pathname: '/',
+                                query: {
+                                    by,
+                                    query
+                                }
+                            });
+                        }}
+                    />
+                    <SearchResults active={by as 'users' | 'repositories'} />
                 </Container>
             </main>
         </>

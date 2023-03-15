@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { Flex } from '@/components/flex';
 import { Typography } from '@/components/typography';
 import { CollaboratorsList } from '@/sections/home/collaborators-list';
@@ -7,18 +5,10 @@ import { RepositoriesList } from '@/sections/home/repositories-list';
 import Link from 'next/link';
 import styles from './index.module.scss';
 
-export const SearchResults = () => {
-    const router = useRouter();
-    const { by, query } = router.query;
-    useEffect(() => {
-        if (router.isReady && !by)
-            router.push({
-                pathname: '/',
-                query: {
-                    by: 'users'
-                }
-            });
-    }, [by]);
+type SearchResultsProps = {
+    active?: 'users' | 'repositories';
+};
+export const SearchResults = ({ active = 'users' }: SearchResultsProps) => {
     return (
         <section className={styles.hero} aria-label="repository query results">
             <Flex margin={[6, 0, 1.5, 0]}>
@@ -30,7 +20,7 @@ export const SearchResults = () => {
                         }
                     }}
                 >
-                    <Typography variant="h3" light={by !== 'users'}>
+                    <Typography variant="h3" light={active !== 'users'}>
                         Collaborators
                     </Typography>
                 </Link>
@@ -45,13 +35,13 @@ export const SearchResults = () => {
                         }
                     }}
                 >
-                    <Typography variant="h3" light={by !== 'repositories'}>
+                    <Typography variant="h3" light={active !== 'repositories'}>
                         Repositories
                     </Typography>
                 </Link>
             </Flex>
-            {by === 'users' && <CollaboratorsList />}
-            {by === 'repositories' && <RepositoriesList />}
+            {active === 'users' && <CollaboratorsList />}
+            {active === 'repositories' && <RepositoriesList />}
         </section>
     );
 };

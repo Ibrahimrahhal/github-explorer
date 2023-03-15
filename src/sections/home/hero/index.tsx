@@ -5,7 +5,11 @@ import { Input } from '@/components/input';
 import { Button } from '@/components/button';
 import { Form } from '@/components/form';
 
-export const Hero = () => {
+type HeroProps = {
+    onQueryChange: (query: string) => void;
+};
+
+export const Hero = ({ onQueryChange }: HeroProps) => {
     return (
         <section className={styles.hero} aria-label="search section">
             <Flex
@@ -23,9 +27,9 @@ export const Hero = () => {
                     Explore Github With Ease
                 </Typography>
                 <Form
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        console.log(e);
+                    onFormSubmit={({ event, values }) => {
+                        event.preventDefault();
+                        onQueryChange(values.searchQuery as string);
                     }}
                 >
                     <Flex justifyContent="center" margin={[6, 0]}>
